@@ -56,15 +56,73 @@ const numeralsThousands = (num) => {
         case 1: return 'M';
         case 2: return 'MM';
         case 3: return 'MMM';
+        case 4: return 'MV̅';
+        case 5: return 'V̅';
+        case 6: return 'V̅M';
+        case 7: return 'V̅MM';
+        case 8: return 'V̅MMM';
+        case 9: return 'I̅X̅';
         default: return '';
     }
 };
+
+const numeralsTensOfThousands = (num) => {
+    switch (parseInt(num)) {
+        case 1: return 'X̅';
+        case 2: return 'X̅X̅';
+        case 3: return 'X̅X̅X̅';
+        case 4: return 'X̅L̅';
+        case 5: return 'L̅';
+        case 6: return 'L̅X̅';
+        case 7: return 'L̅X̅X̅';
+        case 8: return 'L̅X̅X̅X̅';
+        case 9: return 'C̅';
+        default: return '';
+    }
+};
+
+const numeralsHundredThousands = (num) => {
+    switch (parseInt(num)) {
+        case 1: return 'C̅';
+        case 2: return 'C̅C̅';
+        case 3: return 'C̅C̅C̅';
+        case 4: return 'C̅D̅';
+        case 5: return 'D̅';
+        case 6: return 'D̅C̅';
+        case 7: return 'D̅C̅C̅';
+        case 8: return 'D̅C̅C̅C̅';
+        case 9: return 'C̅M̅';
+        default: return '';
+    }
+};
+
+const numeralsMillions = (num) => {
+    switch (parseInt(num)) {
+        case 1: return 'M̅';
+        default: return '';
+    }
+}
+
 const converter = (num) => {
     const result = [];
     const numArray = num.split("");
 
+    if (numArray.length === 7) {
+        result.push(numeralsMillions(numArray[0]));
+        result.push(numeralsHundredThousands(numArray[1]));
+        result.push(numeralsTensOfThousands(numArray[2]));
+        result.push(numeralsThousands(numArray[3]));
+        result.push(numeralsHundreds(numArray[4]));
+        result.push(numeralsTens(numArray[5]));
+        result.push(numeralsUnits(numArray[6]));
 
-    if (numArray.length === 4){
+    } else if (numArray.length === 5){
+        result.push(numeralsTensOfThousands(numArray[0]));
+        result.push(numeralsThousands(numArray[1]));
+        result.push(numeralsHundreds(numArray[2]));
+        result.push(numeralsTens(numArray[3]));
+        result.push(numeralsUnits(numArray[4]));
+    } else if (numArray.length === 4){
         result.push(numeralsThousands(numArray[0]));
         result.push(numeralsHundreds(numArray[1]));
         result.push(numeralsTens(numArray[2]));
@@ -98,11 +156,11 @@ const checkUserInput = () => {
         outputBox.classList.add("error-message");
         outputBox.innerHTML = `Please enter a number greater than or equal to 1`;
         
-    } else if (parseUserInput >= 4000) {
+    } else if (parseUserInput > 1999999) {
         outputBox.classList.remove("hide");
         outputBox.classList.remove("boxes");
         outputBox.classList.add("error-message");
-        outputBox.innerHTML = `Please enter a number less than or equal to 3999`;
+        outputBox.innerHTML = `Please enter a number less than or equal to 1999999`;
     } else {
         const romanNumeral = converter(userInput.value);
         outputBox.classList.remove("boxes");
