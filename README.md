@@ -7,4 +7,6 @@ Key features:
 Input: Users can enter a number between 1 and 3999 to convert it into its Roman numeral equivalent.
 Validation: The program includes validation to prevent inputs of numbers less than 1 or greater than 3999, ensuring accurate conversions.
 
+**Update: Limit is now 1M**
+
 <img src="videoWalkthrough.gif"/>
